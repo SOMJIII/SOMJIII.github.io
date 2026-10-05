@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Reboot01 journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+
+  <!-- Login -->
+  <main id="login-view" class="login" hidden>
+    <div class="shape shape-1" aria-hidden="true"></div>
+    <div class="shape shape-2" aria-hidden="true"></div>
+    <div class="shape shape-3" aria-hidden="true"></div>
+
+    <form id="login-form" class="login-card" novalidate>
+      <h1>Let's see how far you've come</h1>
+      <p class="lede">Log in with your Reboot01 username or email.</p>
+
+      <label for="identifier">Username or email</label>
+      <input id="identifier" name="identifier" autocomplete="username" required>
+
+      <label for="password">Password</label>
+      <div class="pass-wrap">
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button type="button" id="toggle-pass" class="peek" aria-pressed="false">Show</button>
+      </div>
+
+      <p id="login-error" class="form-error" role="alert" hidden></p>
+      <button type="submit" id="login-btn" class="btn">Log in</button>
+    </form>
+  </main>
+
+  <!-- Profile -->
+  <div id="app-view" hidden>
+    <header class="topbar">
+      <span class="brand">My journey</span>
+      <nav class="tabs" aria-label="Pages">
+        <a href="#/" id="tab-profile">Profile</a>
+        <a href="#/lab" id="tab-lab">Query lab</a>
+      </nav>
+      <button id="logout" class="btn btn-small" type="button">Log out</button>
+    </header>
+
+    <main class="dash">
+      <p id="banner" class="banner" role="alert" hidden></p>
+
+      <section class="hero" aria-labelledby="name">
+        <div class="avatar" id="avatar" aria-hidden="true"></div>
+        <div class="who">
+          <p class="hello" id="hello">Welcome back</p>
+          <h1 id="name">–</h1>
+          <p class="handle" id="handle"></p>
+          <ul class="chips" id="chips"></ul>
+        </div>
+        <div class="level">
+          <span class="level-word">Level</span>
+          <span class="level-num" id="level-num">–</span>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Quick stats">
+        <article class="stat stat-grape">
+          <p class="stat-label">Total XP</p>
+          <p class="stat-value" id="stat-xp">–</p>
+          <p class="stat-note">Earned in your module</p>
+        </article>
+        <article class="stat stat-gum">
+          <p class="stat-label">Audit ratio</p>
+          <p class="stat-value" id="stat-ratio">–</p>
+          <p class="stat-note">Done divided by received</p>
+        </article>
+        <article class="stat stat-mint">
+          <p class="stat-label">Projects passed</p>
+          <p class="stat-value" id="stat-projects">–</p>
+          <p class="stat-note" id="stat-projects-note">&nbsp;</p>
+        </article>
+        <article class="stat stat-sky">
+          <p class="stat-label">Top skill</p>
+          <p class="stat-value" id="stat-skill">–</p>
+          <p class="stat-note" id="stat-skill-note">&nbsp;</p>
+        </article>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
+          <h2>XP over time</h2>
+          <p>Every XP gain in your module, stacked up from day one. Hover the line to see each one.</p>
+        </header>
+        <div class="chart-box" id="chart-xp-time" data-slot></div>
+      </section>
+
+      <section class="panel span-7">
+        <header class="panel-head">
+          <h2>XP by project</h2>
+          <p>The projects that gave you the most XP.</p>
+        </header>
+        <div class="chart-box" id="chart-xp-project" data-slot></div>
+      </section>
+
+      <section class="panel span-5">
+        <header class="panel-head">
+          <h2>Latest XP</h2>
+          <p>Your most recent gains.</p>
+        </header>
+        <ul class="feed" id="feed-xp"></ul>
+      </section>
+
+      <section class="panel span-6">
+        <header class="panel-head">
+          <h2>Audits</h2>
+          <p>Audits you did, compared with audits others did on your work.</p>
+        </header>
+        <div class="split">
+          <div class="chart-box" id="chart-audit" data-slot></div>
+          <ul class="legend" id="legend-audit"></ul>
+        </div>
+        <p class="note" id="audit-note" hidden></p>
+        <p class="sub-note" id="audits-given" hidden></p>
+      </section>
+
+      <section class="panel span-6">
+        <header class="panel-head">
+          <h2>Skills</h2>
+          <p>Your highest level in each skill, out of 100.</p>
+        </header>
+        <div class="chart-box radar-box" id="chart-skills" data-slot></div>
+      </section>
+
+      <section class="panel span-5">
+        <header class="panel-head">
+          <h2>Projects</h2>
+          <p>Graded projects, using your latest result for each.</p>
+        </header>
+        <div class="split">
+          <div class="chart-box" id="chart-projects" data-slot></div>
+          <ul class="legend" id="legend-projects"></ul>
+        </div>
+        <ul class="feed feed-top" id="feed-projects"></ul>
+      </section>
+
+      <section class="panel span-7">
+        <header class="panel-head">
+          <h2>Piscines</h2>
+          <p>The exercises that took you the most tries.</p>
+        </header>
+        <ul class="chips chips-space" id="piscine-chips"></ul>
+        <div class="chart-box" id="chart-piscine" data-slot></div>
+      </section>
+    </main>
+
+    <!-- Our own GraphiQL -->
+    <main class="lab" id="lab-view" hidden>
+      <aside class="panel lab-side">
+        <h2>Examples</h2>
+        <p class="side-note">Click one to load it into the editor.</p>
+        <div class="presets" id="presets"></div>
+
+        <h2 class="side-title">Schema</h2>
+        <input id="schema-search" type="search" placeholder="Filter fields" aria-label="Filter schema fields">
+        <ul class="schema-list" id="schema-list"></ul>
+        <div class="schema-detail" id="schema-detail"></div>
+      </aside>
+
+      <section class="panel lab-main" aria-labelledby="lab-title">
+        <div class="lab-bar">
+          <h2 id="lab-title">Query lab</h2>
+          <span class="hint">Ctrl + Enter runs it</span>
+          <button id="run-query" class="btn" type="button">Run query</button>
+        </div>
+
+        <label for="query-input">Query</label>
+        <textarea id="query-input" class="code" spellcheck="false" autocomplete="off"></textarea>
+
+        <label for="vars-input">Variables (JSON)</label>
+        <textarea id="vars-input" class="code code-small" spellcheck="false" autocomplete="off"></textarea>
+
+        <div class="result-head">
+          <h3>Result</h3>
+          <span id="result-meta" class="result-meta"></span>
+        </div>
+        <pre id="result" class="code result" tabindex="0" aria-live="polite">Run a query to see the response here.</pre>
+      </section>
+    </main>
+  </div>
+
+</body>
+</html>
