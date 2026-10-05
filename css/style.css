@@ -24,7 +24,7 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   background-color: var(--paper);
-  /* dotted paper */
+  /* Dotted paper */
   background-image: radial-gradient(var(--grid) 1.5px, transparent 1.5px);
   background-size: 22px 22px;
 }
@@ -149,7 +149,7 @@ input:focus { outline: none; background: var(--card); box-shadow: 0 0 0 4px rgba
   font-weight: 600;
 }
 
-/* Hero: the player card */
+/* Hero, the player card */
 .hero {
   background: var(--card);
   border: 3px solid var(--ink);
@@ -291,7 +291,7 @@ input:focus { outline: none; background: var(--card); box-shadow: 0 0 0 4px rgba
 .hover-line { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 3 4; pointer-events: none; }
 .hover-dot { fill: var(--lemon); stroke: var(--ink); stroke-width: 3; pointer-events: none; }
 
-.bar { stroke: var(--ink); stroke-width: 2.5; cursor: default; }
+.bar { stroke: var(--ink); stroke-width: 2.5; }
 .bar:hover { filter: brightness(1.1); }
 .bar-grape { fill: var(--grape); }
 .bar-lemon { fill: var(--lemon); }
@@ -384,7 +384,6 @@ input:focus { outline: none; background: var(--card); box-shadow: 0 0 0 4px rgba
 }
 .schema-item:hover { background: #F0EDFF; }
 .schema-detail h3 { font: 700 1rem var(--display); margin: 16px 0 8px; overflow-wrap: anywhere; }
-.schema-detail .chip-btn { margin-bottom: 8px; }
 .type-fields { list-style: none; margin: 0; padding: 0; font-size: 0.86rem; }
 .type-fields li { display: flex; justify-content: space-between; gap: 8px; padding: 0.25rem 0; border-bottom: 1px dashed var(--grid); }
 .type-name { color: var(--grape); font-weight: 700; text-align: right; overflow-wrap: anywhere; }
@@ -413,10 +412,6 @@ textarea.code:focus { outline: none; background: var(--card); box-shadow: 0 0 0 
 .result-meta.is-good { color: #127A58; }
 .result-meta.is-bad { color: #B0164D; }
 .result { margin: 0; min-height: 160px; max-height: 520px; overflow: auto; white-space: pre; background: #1F1846; color: #E9E6FF; }
-.j-key { color: #9FD8FF; }
-.j-str { color: #FFD447; }
-.j-num { color: #7CF0C5; }
-.j-bool, .j-null { color: #FF9CC4; }
 
 /* Smaller screens */
 @media (max-width: 900px) {
