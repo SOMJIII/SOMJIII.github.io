@@ -217,5 +217,26 @@ async function showType(field, name) {
     li.append(tag("span", f.name), tag("span", typeText(f.type), "type-name"));
     list.append(li);
   }
-  $("#schema-detail").replaceChildren(tag("h3", `${field} → ${name}`), list);
+  $("#schema-detail").replaceChildren(tag("h3", `${field} → ${name}`), tryButton(field, json.data?.__type?.fields || []), list);
 }
+
+// Writes a starter query into the editor using the simple columns, ones that are plain values and not other tables
+function tryButton(field, fields) {
+  const columns = fields.filter((f) => ["SCALAR", "ENUM"].includes(baseKind(f.type))).slice(0, 6);
+
+  // Fields that fetch one row by its id need an argument, and aggregate fields have no plain columns, so they get no button
+  if (!columns.length || field.endsWith("_by_pk")) return "";
+
+  const btn = tag("button", `Try ${field}`, "chip-btn");
+  btn.type = "button";
+  btn.addEventListener("click", () => {
+    const lines = columns.map((f) => `    ${f.name}`).join("\n");
+    $("#query-input").value = `{\n  ${field}(limit: 5) {\n${lines}\n  }\n}`;
+    $("#vars-input").value = "{}";
+    $("#query-input").focus();
+  });
+  return btn;
+}
+
+// The real kind under the wrappers, like SCALAR for a number or OBJECT for another table
+const baseKind = (t) => (t.ofType ? baseKind(t.ofType) : t.kind);
